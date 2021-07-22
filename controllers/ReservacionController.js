@@ -20,9 +20,9 @@ module.exports = {
     },
     list: async (req, res, next) => {
         try {
-            const list = await reservacionSchema.find({}, function (err, libros) {
-                habitacionSchema.populate(libros, { path: "habitacion" }, function (err, libros) {
-                  res.status(200).send(libros);
+            const list = await reservacionSchema.find({}, function (err, room) {
+                habitacionSchema.populate(room, { path: "habitacion" }, function (err, room) {
+                  res.status(200).send(room);
                 });
               })
         } catch (error) {
