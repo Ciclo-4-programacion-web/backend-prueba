@@ -1,12 +1,13 @@
 const routerx = require('express-promise-router')
 const reservacionController = require('../controllers/ReservacionController')
+const auth = require('../middlewares/authJwt')
 
 const router = routerx()
 
-router.post('/add', reservacionController.add)
-router.get('/list', reservacionController.list)
-router.put('/update/:id', reservacionController.update)
-router.delete('/delete/:id', reservacionController.delete)
+router.post('/add', [auth.verifyToken, auth.verifyUsuario], reservacionController.add)
+router.get('/list', [auth.verifyToken, auth.verifyAdministrador], reservacionController.list)
+router.put('/update/:id', [auth.verifyToken, auth.verifyUsuario], reservacionController.update)
+router.delete('/delete/:id', [auth.verifyToken, auth.verifyUsuario], auth.verifyToken, reservacionController.delete)
 
 
 module.exports = router

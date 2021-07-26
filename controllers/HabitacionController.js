@@ -14,8 +14,6 @@ module.exports = {
             });
             next(e);
         }
-
-
     },
     list: async (req, res, next) => {
         try {

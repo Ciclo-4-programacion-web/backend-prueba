@@ -3,23 +3,28 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require('morgan')
 let dbConfig = require("./database/db");
-const app = express();
+const path = require('path')
+const passport = require("passport");
+const router = require('./routes')
+const auth = require('./libs/roles')
 
-const habitacion = require('./routes/habitacion')
-const reservacion = require('./routes/reservacion')
+
+const app = express();
+auth.createRoles()
 
 // Setting
-app.set('port', process.env.PORT || 3000)
+app.set('port', process.env.PORT || 4000)
 
 // Middlewares
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(cors());
+app.use(passport.initialize());
 
 // Routes
-app.use('/habitacion', habitacion)
-app.use('/reservacion', reservacion)
+app.use('/api', router)
 // Static files
 
 // Starting the server
