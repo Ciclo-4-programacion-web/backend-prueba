@@ -125,9 +125,14 @@ module.exports = {
                                 'secretKeyToGenerateToken',
                                 {
                                     expiresIn: 86400 // 24 horas
+                                },
+                                (err, token) => {
+                                    res.json({
+                                        success: true,
+                                        token: token
+                                    });
                                 }
                             );
-                            res.status(200).json({ tokenReturn });
                         } else {
                             return res
                                 .status(400)
