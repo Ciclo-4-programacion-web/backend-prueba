@@ -17,7 +17,7 @@ module.exports = {
     },
     room: async (req, res, next) => {
         try {
-            const reg = await habitacionSchema.findById(req.params.id)
+            const reg = await habitacionSchema.findById(req.params.id) 
             if (reg) {
                 res.status(200).json(reg);
             } else {
