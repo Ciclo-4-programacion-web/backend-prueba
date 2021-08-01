@@ -59,7 +59,7 @@ module.exports = {
                 res.status(200).json(list);
             } else {
                 res.status(404).send({//404: usuario no encontrado
-                    message: 'Articulos no registradas'
+                    message: 'usuarios no registrados'
                 })
             }
         } catch (error) {

@@ -15,6 +15,23 @@ module.exports = {
             next(e);
         }
     },
+    room: async (req, res, next) => {
+        try {
+            const reg = await habitacionSchema.findById(req.params.id)
+            if (reg) {
+                res.status(200).json(reg);
+            } else {
+                res.status(404).send({//404: usuario no encontrado
+                    message: 'Habitacion no encontrada'
+                })
+            }
+        } catch (error) {
+            res.status(500).send({
+                message: 'Ocurrió un error'
+            });
+            next(e);
+        }
+    },
     list: async (req, res, next) => {
         try {
             const list = await habitacionSchema.find()
@@ -22,7 +39,7 @@ module.exports = {
                 res.status(200).json(list);
             } else {
                 res.status(404).send({//404: usuario no encontrado
-                    message: 'Articulos no registradas'
+                    message: 'Habitaciones no registradas'
                 })
             }
         } catch (error) {
