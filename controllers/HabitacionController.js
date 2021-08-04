@@ -29,7 +29,7 @@ module.exports = {
             res.status(500).send({
                 message: 'Ocurrió un error'
             });
-            next(e);
+            next(error);
         }
     },
     list: async (req, res, next) => {
@@ -93,20 +93,19 @@ module.exports = {
         try {
             const activate = await habitacionSchema.findByIdAndUpdate(req.params.id, {
                 $set:{state: false}
-            }, (error, data)=>{
-                if (error) {
-                    return next(error);
-                    console.log(error)
-                } else {
-                    res.json(data)
-                    console.log('Room updated successfully !')
-                }
             })
+            if (activate) {
+                res.status(200).json(activate);
+            } else {
+                res.status(404).send({//404: usuario no encontrado
+                    message: 'Habitacion no encontrada'
+                })
+            }
         } catch (error) {
             res.status(500).send({
                 message: 'Ocurrió un error'
             });
-            next(e);
+            next(error);
         }
     }
 

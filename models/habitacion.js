@@ -5,6 +5,10 @@ let habitacionSchema = new Schema({
     name: {
         type: String
     },
+    image: {
+        type: String,
+        default: "https://pmcasa.com/wp-content/uploads/2019/08/importancia-iluminacion-habitacion-decoracion-1024x575.jpg"
+    },
     type:{
         type: String
     },
