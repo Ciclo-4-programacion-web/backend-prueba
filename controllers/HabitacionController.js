@@ -107,6 +107,23 @@ module.exports = {
             });
             next(error);
         }
+    },
+    delete: async (req, res, next) => {
+        try {
+            const room = await habitacionSchema.findByIdAndDelete(req.params.id)
+            if(room){
+                res.status(200).json(room);
+            }else{
+                res.status(404).send({
+                    message: 'Habitaciones no registrada'
+                })
+            }
+        } catch (error) {
+            res.status(500).send({
+                message: 'Ocurrió un error'
+            });
+            next(error);
+        }
     }
 
 }

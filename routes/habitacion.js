@@ -10,6 +10,7 @@ router.get('/room/:id', habitacionController.room)
 router.put('/update/:id', [auth.verifyToken, auth.verifyAdministrador],  habitacionController.update)
 router.put('/activate/:id', [auth.verifyToken, auth.verifyUsuario], habitacionController.activate)
 router.put('/deactivate/:id', [auth.verifyToken, auth.verifyUsuario], habitacionController.deactivate)
+router.delete('/delete/:id', [auth.verifyToken, auth.verifyAdministrador], habitacionController.delete)
 
 
 module.exports = router
