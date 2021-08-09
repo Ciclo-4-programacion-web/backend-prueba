@@ -6,8 +6,9 @@ const router = routerx()
 
 router.post('/add', [auth.verifyToken, auth.verifyUsuario], reservacionController.add)
 router.get('/list', [auth.verifyToken, auth.verifyAdministrador], reservacionController.list)
+router.get('/list/:id', [auth.verifyToken, auth.verifyUsuario], reservacionController.listReservationID)
 router.put('/update/:id', [auth.verifyToken, auth.verifyUsuario], reservacionController.update)
-router.delete('/delete/:id', [auth.verifyToken, auth.verifyUsuario], auth.verifyToken, reservacionController.delete)
+router.delete('/delete/:id', [auth.verifyToken, auth.verifyUsuario], reservacionController.delete)
 
 
 module.exports = router

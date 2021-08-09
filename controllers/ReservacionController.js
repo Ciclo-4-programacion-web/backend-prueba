@@ -15,20 +15,37 @@ module.exports = {
             });
             next(e);
         }
-
-
     },
     list: async (req, res, next) => {
         try {
             const list = await reservacionSchema.find({}, function (err, room) {
                 habitacionSchema.populate(room, { path: "habitacion" }, function (err, room) {
-                  res.status(200).send(room);
+                    res.status(200).send(room);
                 });
-              })
+            })
         } catch (error) {
             res.status(500).send({ //500 error con el servidor
                 message: 'Error -> servidor'
             })
+            next(error);
+        }
+    },
+    listReservationID: async (req, res, next) => {
+        try {
+            const reservacion = await reservacionSchema.find({"email": req.params.id }, function (err, room) {
+                habitacionSchema.populate(room, { path: "habitacion" }, function (err, room) {
+                    res.status(200).send(room);
+                });
+            })
+            if (!reservacion) {
+                res.status(404).send({
+                    message: 'reservacion no registrada'
+                })
+            }
+        } catch (error) {
+            res.status(500).send({
+                message: 'Ocurrió un error'
+            });
             next(error);
         }
     },
@@ -55,8 +72,8 @@ module.exports = {
     delete: async (req, res, next) => {
         try {
             const activate = await reservacionSchema.findByIdAndRemove(req.params.id, {
-                $set:{state: true}
-            }, (error, data)=>{
+                $set: { state: true }
+            }, (error, data) => {
                 if (error) {
                     return next(error);
                     console.log(error)
